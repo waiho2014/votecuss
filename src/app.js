@@ -1,16 +1,21 @@
-import webServer from './webServer';
-import database  from './database';
-import {
-	serverConfig
-} from './configs';
+import Mix         from 'mixwith';
 
-export default class App {
+import webServer   from './webServer';
+import database    from './database';
+import redisClient from './redisClient';
+import { server }  from './configs';
+import controllers from './controllers';
+
+export default class App extends Mix().with(controllers) {
+
 	constructor() {
-		this.webServer = webServer;
-		this.database = database;
+		this.webServer   = webServer.call(this);
+		this.database    = database;
+		this.redisClient = redisClient;
 	}
 
 	start() {
-		this.webServer.listen(serverConfig.port);
+		this.webServer.listen(server.port);
 	}
+
 }

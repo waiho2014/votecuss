@@ -1,19 +1,24 @@
-import koa     from 'koa';
-import koajwt  from 'koa-jwt';
-import convert from 'koa-convert';
-import session from 'koa-generic-session';
-import redis   from 'koa-redis';
+import koa      from 'koa';
+import koajwt   from 'koa-jwt';
+import convert  from 'koa-convert';
+import session  from 'koa-generic-session';
+import koaRedis from 'koa-redis';
 
-let reqLtnr = new koa();
+export default function() {
+	let reqLtnr = new koa();
 
-reqLtnr.use(convert(session({
-	store: redis()
-})));
+	reqLtnr.use(convert(session({
+		store: koaRedis({
+			client : this.redisClient
+		})
+	})));
 
-reqLtnr.use(koajwt({
-	secret : 'this is a secret'
-}));
+	reqLtnr.use(koajwt({
+		secret : 'this is a secret'
+	}));
 
-reqLtnr.use()
+	// TODO: Add other middleware
+	reqLtnr.use(this.testMiddleware)
 
-export default http.createServer(reqLtnr.callback());
+	return http.createServer(reqLtnr.callback());
+}
