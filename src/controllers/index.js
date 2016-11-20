@@ -1,4 +1,6 @@
-import UserController  from './user';
-import IssueController from './issue';
+import UserController     from './user';
+export CatagoryController from './catagory';
+import IssueController    from './issue';
+export CommentController  from './comment';
 
-export default [UserController, IssueController];
+export default [UserController, CatagoryController, IssueController, CommentController];

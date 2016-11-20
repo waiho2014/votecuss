@@ -4,7 +4,7 @@ import convert  from 'koa-convert';
 import session  from 'koa-generic-session';
 import koaRedis from 'koa-redis';
 
-export default function() {
+export default function(base) {
 	let reqLtnr = new koa();
 
 	reqLtnr.use(convert(session({

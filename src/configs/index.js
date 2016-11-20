@@ -18,3 +18,6 @@ export const redis = {
 	}
 };
 
+export const mailer = {
+    apiKey : process.env.send_grid_key
+}
